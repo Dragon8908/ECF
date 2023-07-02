@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services de réparation{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container mb-2"> 
+        <div class="row g-1 reveal">
+            <div class="categorie-fonts text-primary ps-3">Nos Services et réparations</div>
+            <ul>
+                {% for services in services %}
+                <li class="service-card">
+                    <h3>{{ services.titre }}</h3>
+                    <p>{{ services.description }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

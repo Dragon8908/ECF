@@ -1,0 +1,61 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5b441f;  
+    color: #DDB46A;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+}
+
+.header-connecte {
+    font-family: 'Barlow', sans-serif;
+    background-color: #5b441f;
+}
+
+.header-font {
+    font-family: 'Barlow', sans-serif;
+}
+
+.menu-hover::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    background: #DDB46A;  
+    transition: width 0.2s ease-in-out;
+}
+    
+.menu-hover:hover::after {
+    width: 5.8%;
+}
+
+.menu-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 40px;
+    border-radius: 0;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.menu-btn:hover {
+    background-color: white;
+    color: black;
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.05);
+}
+
+.footer-logo {   
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+}
+
+.footer-texte {
+    font-family: 'Barlow', sans-serif;
+}

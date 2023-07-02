@@ -1,0 +1,35 @@
+.titre-bienvenue {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5vh;
+}
+
+.texte-presentation {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.2rem;
+}
+
+.btn-contact{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 40px;
+    border-radius: 0;
+    border-style:double;
+    border-color: black;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;    
+    color: white;
+    background-color: black; 
+}
+
+.btn-contact:hover {
+    color: black;
+    background-color: white;
+    background-color: #edd19f;
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.05);
+}

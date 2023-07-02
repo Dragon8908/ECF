@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<section>
+    <div class="titre-bienvenue mt-5 text-center text-primary mb-4 reveal">
+        <p>Bienvenue sur le site du garage V. Parrot</p>  
+    </div>
+</section>
+<section > 
+    <div class="container border-top py-5 g-0 "> 
+        <div class="row align-items-center">
+            <div class="col-xl-2 col-md-1 col-lg-1 d-sm-none d-md-block"></div>
+            <div class="col-xl-4 col-md-5 col-lg-6 col-sm-6 g-0 d-flex flex-column justify-content-center mb-3">
+                <img class="w-100 reveal" src="{{ asset('images/garage.jpg') }}" alt="garage">
+            </div> 
+            <div class="col-xl-1 col-md-1 col-sm-1"></div>
+            <div class="texte-presentation col col-xl-3 col-md-4 col-lg-3 col-sm-5 text-center text-primary reveal">
+                <p>Nous sommes situés au 12 rue des garages à Toulouse</p> 
+                <p>Nous serons ravis de vous accueillir pour tout vos achats de voitures et vos réparations </p>
+                <p>Nous sommes fiers d'être parmis les garages les pmieux notés de France, grâce à nos prix compétitifs et nos services irréprochables</p>
+                <p>Nous faisons le contrôle technique, différentes répararations de votre voiture avec des piéces neuves et d'occasions, et nous vendons des voitures d'occasions à des prix défiant toute concurrence</p>
+                <p>Nos nombreux clients peuvent nous laisser des avis qui sont pour la plupart très positifs</p>
+                <p>En venant chez nous vous ne serez pas déçus</p> 
+            </div>
+            <div class="col-xl-2 col-md-1 col-lg-2 d-sm-none d-md-block1"></div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container mt-3 g-0 border-top"> 
+        <h2 class="categorie-fonts mb-4 mt-4 text-primary">Quelques voitures d'occasions en vente</h2>
+        <div class="container mb-2">
+            <div class="row g-1"> 
+                <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
+                    <div class="card-body">
+                        <img src="{{ asset('images/coccinelle.jpg') }}" class="card-img w-100 rounded-0" alt="Coccinelle">
+                        <h5 class="card-title text-primary mt-1">Volswaggen Coccinelle - 4000 euros</h5>
+                        <p class="card-text text-primary">Une superbe coccinelle rouge pomme de 2018, avec seulement 20 000 km au compteur, posséde un gps ,une caméra de recul et des avertisseurs sonores, elle est à seulement à 4000 euros, profitez-en</p>
+                    </div>
+                </div>
+                <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
+                    <div class="card-body">
+                        <img src="{{ asset('images/peugeot-208.jpg') }}" class="card-img w-100 rounded-0" alt="Coccinelle">
+                        <h5 class="card-title text-primary mt-1">Peugeot 208 - 6000 euros</h5>
+                        <p class="card-text text-primary">Une magnifique peugeot 208 bleue claire de 2016, avec 50 000 km au compteur avec toutes les options, equipements assez récents, à seulement 6000 euros une affaire en or</p>
+                    </div>
+                </div>
+                <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
+                    <div class="card-body">
+                        <img src="{{ asset('images/renault-captur.jpg') }}" class="card-img w-100 rounded-0" alt="Coccinelle">
+                        <h5 class="card-title text-primary mt-1">Renault Captur - 8000 euros</h5>
+                        <p class="card-text text-primary">Une belle renault captur orange avec toit blanc de 2020, avec 70 000 km au compteur, posséde toutes les options et équipements, elle est à 8000 euros et vraiment en très bon état, on la croirait neuve</p>
+                    </div>
+                </div>       
+            </div>
+        </div>
+    </div>
+    <div class="categorie-fonts text-center m-2 d-flex flex-column justify-content-center align-items-center text-primary"> Avis des clients
+        {% for temoignages in temoignages %}
+        <div class="texte-presentation">
+            <h4> Avis de {{temoignages.nom}}</h3>
+            <p >{{temoignages.commentaire}}</p>
+            <p>Note: {{temoignages.note}} étoiles </p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="categorie-fonts text-center m-2 d-flex flex-column justify-content-center align-items-center text-primary">
+        <a href="{{ path('app_contact')}}" class="text-decoration-none">
+            <div class="btn-contact me-md-2 m-2">Contact</div>
+        </a>
+    </div> 
+</section>
+{% endblock %} 

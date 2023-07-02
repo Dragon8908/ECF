@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voitures d'occasions{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('voitureJS') }}
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="container border-top py-3 my-3 g-0"> </div>
+    <div class="container mb-2"> 
+        <div class="row g-1 reveal">
+            <div class="categorie-fonts text-primary ps-3">Nos voitures d'occasions</div>
+            <div class="filters">
+                <button class="btn" id="btn-filter">Filtrer</button>
+                <div class="filters">
+                <form id="form-filter" autocomplete="off">
+                    <div id="filter-container">
+                        <div class="price-filter">
+                            <label for="min_price">Prix minimum</label>
+                            <input type="number" name="price-min" id="min_price">
+                            <label for="max_price">Prix maximum</label>
+                            <input type="number" name="price-max" id="max_price">
+                        </div>
+                        <div class="kilometrages-filter">
+                            <label for="kilometrages-min">Km min</label>
+                            <input type="number" name="km-min" id="kilometrages-min">
+                            <label for="kilometrages-max">Km max</label>
+                            <input type="number" name="km-max" id="kilometrages-max">
+                        </div>
+                        <div class="releaseYear-filter">
+                            <label for="releaseYear-min">Année min</label>
+                            <input type="number" name="releaseYear-min" id="releaseYear-min">
+                            <label for="releaseYear-max">Année max</label>
+                            <input type="number" name="releaseYear-max" id="releaseYear-max">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="order-container">
+                <select name="order-select" id="order-select">
+                    <option value="" disabled selected>-- Choisir un ordre --</option>
+                    <option value="name_ASC">Nom croissant</option>
+                    <option value="name_DESC">Nom décroissant</option>
+                    <option value="price_ASC">Prix croissant</option>
+                    <option value="price_DESC">Prix décroissant</option>
+                    <option value="created_ASC">Date de création décroissant</option>
+                    <option value="created_DESC">Date de creéation décroissant</option>
+                </select>
+            </div>
+            
+            <ul id="product-grid">
+                {% if voitures is not empty %}
+                {% for voitures in voitures %}
+                <li>
+                    <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
+                        <div class="card-body">
+                            <img src="{{ asset('images/' ~ voitures.image.fichier ) }}" class="card-img w-100 rounded-0" alt="...">
+                            <h5 class="card-title text-primary mt-1 card-titre">{{ voitures.nom }}</h5>
+                            <p class="card-text text-primary">
+                                Année: {{ voitures.annee }}</br>                                    
+                                {{voitures.km}} km</br>
+                                {{voitures.prix}} euros
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% elseif voitures is empty %}
+                <h3>Désolé</h3>
+                <h4>Aucun résultat pour cette recherche...</h4>
+                {% endif %}
+            </ul>
+
+            {% for voitures in voitures %}
+            <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
+                <div class="card-body">
+                    <img src="{{ asset('images/' ~ voitures.image.fichier ) }}" class="card-img w-100 rounded-0" alt="...">
+                    <h5 class="card-title text-primary mt-1 card-titre">{{ voitures.nom }}</h5>
+                    <p class="card-text text-primary">
+                    Année: {{ voitures.annee }}</br>
+                    {{voitures.km}} km</br>
+                    {{voitures.prix}} euros
+                    </p>
+                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details" type="button">Détails</a>
+                    <a href="{{ path('app_contact')}}" class="text-decoration-none"><div class="btn-contact me-md-2">Contact</div></a>
+                    
+                    <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="joinModalLabel">
+                                        Détails de la voiture
+                                    </h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5> Galerie d'image</h5>
+                                    <h5>Caractéristiques</h5>
+                                    <p>{{voitures.option.caracteristiques}}</p>
+                                    <h5>Equipements et options</h5>
+                                    <p>{{voitures.option.equipements}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+.card-title {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5rem; 
+}
+
+.card-text {
+    font-family: 'Barlow', sans-serif;
+}
+
+.card-description, .card-title {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.2rem;
+    cursor: default;
+    opacity: 0;
+    background-color: grey;
+    overflow: hidden;
+}
+    
+.card-description, .card-title:hover {
+    height: 130px;
+    width: 100%;
+    border-radius: 0;
+    transition: 0.5s;
+    opacity: 1;
+}
+
+.categorie-fonts {
+    font-family: 'Barlow', serif;
+    font-size: 2rem;
+}

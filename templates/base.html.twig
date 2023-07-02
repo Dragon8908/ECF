@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Garage V. Parrot{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@200&family=Rajdhani&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <div class="logo container-fluid py-2">  
+                <a class="text-secondary text-decoration-none" href="{{path('app_accueil')}}"> 
+                    <img src="{{ asset('images/logo.jpg') }}" width="100%" height="auto" alt="Logo du garage V.Parrot">
+                </a>
+            </div>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="header-connecte text-end text-secondary pe-3">Bienvenue {{ app.user.nom}} {{ app.user.prenom}}</div>
+            {% endif %}
+
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid p-2">
+                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="header-font mx-auto">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ms-5">
+                                    <a class="menu-hover text-primary nav-link" aria-current="page" href="{{ path('app_accueil')}}">Accueil</a>
+                                </li>
+                                <li class="nav-item ms-5">
+                                    <a class="menu-hover text-primary nav-link" href="{{ path('app_voiture')}}">Voitures d'occasion</a>
+                                </li>
+                                <li class="nav-item ms-5">
+                                    <a class="menu-hover text-primary nav-link" href="{{ path('app_reparation')}}">Réparations et services</a>
+                                </li>
+                                <li class="nav-item ms-5">
+                                    <a class="menu-hover text-primary nav-link" href="{{ path('app_temoignage')}}">Donnez votre avis</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        {% if is_granted('ROLE_ADMIN') %} 
+                        <a href="{{ path('app_admin')}}"><div class="menu-btn me-md-2 ">Administration</div></a>
+                        <a href="{{ path('app_profil')}}"><div class="menu-btn me-md-2 ">Mon profil</div></a>
+                        <a href="{{ path('app_deconnexion')}}"><div class="menu-btn me-md-2">Se déconnecter</div></a>  
+                        {% elseif is_granted('ROLE_USER') %}
+                        <a href="{{ path('app_profil')}}"><div class="menu-btn me-md-2 ">Mon profil</div></a>
+                        <a href="{{ path('app_deconnexion')}}"><div class="menu-btn me-md-2">Se déconnecter</div></a>  
+                        {% else %}
+                        <a href="{{ path('app_contact')}}"><div class="menu-btn me-md-2">Nous contacter</div></a>
+                        <a href="{{ path('app_connexion')}}"><div class="menu-btn me-md-2">Se connecter</div></a>    
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </header>
+        {% block body %}{% endblock %}
+        
+        <div class="container">
+            <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-2 border-top">
+                <div class="col mb-3">
+                    <a class="footer-logo text-decoration-none text-primary" href="{{path('app_accueil')}}">
+                        <img src="{{ asset('images/logo.jpg') }}" width="100%" height="auto" alt="Logo du garage V.Parrot">
+                    </a>
+                    <p class="text-muted mt-2">© 2023</p>
+                    <a href="{{ path('app_contact')}}" class="text-decoration-none"><div class="btn-contact me-md-2">Contact</div></a>
+                </div> 
+                <div class="col mb-3"></div>
+                <div class="footer-texte col mb-3">  
+                    <h5 class="text-primary">Nous contacter</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2 text-primary">12, rue des garages</li>
+                        <li class="nav-item mb-2 text-primary">31100 Toulouse</li>
+                        <li class="nav-item mb-2 text-primary"><a href="tel:+33401020304">04 01 02 03 04</a></li>
+                        <li class="nav-item mb-2 text-primary"><a href="mailto: gargevparrot@tset.fr">Notre e-mail</a></li>  
+                    </ul>
+                </div>
+                <div class="footer-texte col mb-3">
+                    <h5 class="text-primary">Horaires d'ouverture</h5>
+                    <ul class="nav flex-column">
+                        {% for horaires in horaires %}
+                        <li class="nav-item mb-2 text-primary">{{ horaires.jour }}: {{ horaires.matin }}  {{ horaires.aprem }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    </body>
+</html>

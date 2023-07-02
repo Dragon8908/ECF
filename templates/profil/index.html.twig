@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+
+        {% if app.user and "ROLE_ADMIN" in app.user.roles %}
+        <div id="link-account-create">
+            <a href="{{ path('app_inscription') }}">Créer un employé</a>
+        </div>
+        {% endif %}
+
+
+    {% if app.user and "ROLE_USER" in app.user.roles %}
+        <section class="opinion-moderate">
+            <h3 style="text-align: center; margin-top: 1em">Avis à modérer</h3>
+            <div class="opinion-moderate-container">
+                <ul>
+                    {% if temoignages is not empty %}
+                    {% for temoignages in temoignages %}
+                    <li class="opinion-item">
+                        <div>
+                            <span>{{ temoignages.nom|upper }}</span>
+                            <p>{{ temoignages.commentaire }}</p>
+                            <span>Note: {{ temoignages.note }} / 5</span>
+                            {% if app.request.get('_route') == 'app_profil' %}
+                            <div style="text-align: end">
+                                <a href="{{ path('app_validation', {'id': temoignages.id}) }}">Valider l'avis</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                    {% elseif temoignages is empty %}
+                    <span id="no-opinions-moderate">Pas d'avis pour le moment...</span>
+                   {% endif %}
+                </ul>
+            </div>
+        </section>
+    {% endif %}
+    
+    <h2>Bonjour {{ app.user.nom|upper }} {{ app.user.prenom }}</h2>
+    <h4>Vous êtes sur le site du garage de Vincent Parrot</h4>
+{% endblock %}

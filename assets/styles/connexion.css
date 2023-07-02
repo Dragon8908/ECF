@@ -1,0 +1,25 @@
+.login-btn{
+    height: 30px;
+    border-radius: 0;
+    border-color: black;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;
+    background-color: black;
+    color: white;
+}
+    
+.login-btn:hover {
+    background-color: white;
+    color: black;
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.03);
+}
+
+.form-fonts{
+    font-family: 'Barlow', sans-serif;
+}
+
+.connecte {
+    font-size: 1.5rem;
+    font-family: 'Barlow', sans-serif;
+}

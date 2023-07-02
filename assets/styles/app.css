@@ -1,0 +1,160 @@
+.titre-bienvenue {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5vh;
+}
+
+.texte-presentation {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.2rem;
+}
+
+.btn-contact{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 40px;
+    border-radius: 0;
+    border-style:double;
+    border-color: black;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;    
+    color: white;
+    background-color: black; 
+}
+
+.btn-contact:hover {
+    color: black;
+    background-color: white;
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5b441f;  
+    color: #DDB46A;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+}
+
+.header-connecte {
+    font-family: 'Barlow', sans-serif;
+    background-color: #5b441f;
+}
+
+.header-font {
+    font-family: 'Barlow', sans-serif;
+}
+
+.menu-hover::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    background: #DDB46A;  
+    transition: width 0.2s ease-in-out;
+}
+    
+.menu-hover:hover::after {
+    width: 5.8%;
+}
+
+.menu-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 40px;
+    border-radius: 0;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.menu-btn:hover {
+    background-color: white;
+    color: black;
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.05);
+}
+
+.footer-logo {   
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+}
+
+.footer-texte {
+    font-family: 'Barlow', sans-serif;
+}
+
+.login-btn{
+    height: 30px;
+    border-radius: 0;
+    border-color: black;
+    font-weight: bold;
+    font-family: 'Barlow', sans-serif;
+    background-color: black;
+    color: white;
+}
+    
+.login-btn:hover {
+    background-color: white;
+    color: black;
+    transition: 0.2s all ease-in-out;
+    transform: scale(1.03);
+}
+
+.form-fonts{
+    font-family: 'Barlow', sans-serif;
+}
+
+.connecte {
+    font-size: 1.5rem;
+    font-family: 'Barlow', sans-serif;
+}
+
+.card-titre {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5rem; 
+}
+
+.card-text {
+    font-family: 'Barlow', sans-serif;
+}
+
+.card-description, .card-titre {
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.2rem;
+    cursor: default;
+    opacity: 1;
+    background-color: grey;
+}
+
+.categorie-fonts {
+    font-family: 'Barlow', sans-serif;
+    font-size: 2rem;
+}
+
+.service-card {
+    padding: 1em;
+    border-radius: 10px;
+    background: var(--color-light);
+    margin-bottom: 30px;
+    width: 80%;
+}
+
+.service-card > h3 {
+    margin-bottom: .6em;
+}
+
+.service-card > p {
+    word-wrap: break-word;
+}
