@@ -15,6 +15,7 @@ class VoitureFixtures extends Fixture
         $voiture1->setPrix(4000);
         $voiture1->setAnnee(2018);
         $voiture1->setKm(20000);
+        $voiture1->setFichier('coccinelle.jpg');
         $image1 = $this->getReference('coccinelle');
         $voiture1->setImage($image1);
         $option1 = $this->getReference('coccinelle_option');
@@ -26,6 +27,7 @@ class VoitureFixtures extends Fixture
         $voiture2->setPrix(6000);
         $voiture2->setAnnee(2016);
         $voiture2->setKm(50000);
+        $voiture2->setFichier('peugeot-208.jpg');
         $image2 = $this->getReference('208');
         $voiture2->setImage($image2);
         $option2 = $this->getReference('208_option');
@@ -37,6 +39,7 @@ class VoitureFixtures extends Fixture
         $voiture3->setPrix(8000);
         $voiture3->setAnnee(2020);
         $voiture3->setKm(70000);
+        $voiture3->setFichier('renault-captur.jpg');
         $image3 = $this->getReference('captur');
         $voiture3->setImage($image3);
         $option3 = $this->getReference('captur_option');
@@ -48,6 +51,7 @@ class VoitureFixtures extends Fixture
         $voiture4->setPrix(5500);
         $voiture4->setAnnee(2010);
         $voiture4->setKm(120000);
+        $voiture4->setFichier('opel-corsa.jpg');
         $image4 = $this->getReference('corsa');
         $voiture4->setImage($image4);
         $option4 = $this->getReference('corsa_option');
@@ -59,6 +63,7 @@ class VoitureFixtures extends Fixture
         $voiture5->setPrix(15000);
         $voiture5->setAnnee(2019);
         $voiture5->setKm(30000);
+        $voiture5->setFichier('audi-gt.jpg');
         $image5 = $this->getReference('audi');
         $voiture5->setImage($image5);
         $option5 = $this->getReference('audi_option');
@@ -70,6 +75,7 @@ class VoitureFixtures extends Fixture
         $voiture6->setPrix(7000);
         $voiture6->setAnnee(2003);
         $voiture6->setKm(180000);
+        $voiture6->setFichier('freelander.jpg');
         $image6 = $this->getReference('freelander');
         $voiture6->setImage($image6);
         $option6 = $this->getReference('freelander_option');

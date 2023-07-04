@@ -26,7 +26,7 @@ class TemoignageController extends AbstractController
         ]);
     }
 
-    #[Route('/opinion/{id}', name: 'app_validation')]
+    #[Route('/temoignage/{id}', name: 'app_validation')]
     public function validate(Temoignage $temoignage,EntityManagerInterface $em): Response
     {
 

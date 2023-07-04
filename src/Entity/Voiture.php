@@ -36,6 +36,9 @@ class Voiture
     #[ORM\OneToMany(mappedBy: 'voiture', targetEntity: Contact::class)]
     private Collection $contacts;
 
+    #[ORM\Column(length: 255)]
+    private ?string $fichier = null;
+
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
@@ -144,6 +147,18 @@ class Voiture
                 $contact->setVoiture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFichier(): ?string
+    {
+        return $this->fichier;
+    }
+
+    public function setFichier(string $fichier): self
+    {
+        $this->fichier = $fichier;
 
         return $this;
     }

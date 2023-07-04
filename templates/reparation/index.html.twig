@@ -13,6 +13,11 @@
                     <h3>{{ services.titre }}</h3>
                     <p>{{ services.description }}</p>
                 </li>
+                {% if app.user and "ROLE_USER" in app.user.roles%}
+                <span>
+                    <a href="{{ path('app_supprimer_service', {'id': service.id}) }}">supprimer</a>
+                </span>
+                {% endif %}
                 {% endfor %}
             </ul>
         </div>

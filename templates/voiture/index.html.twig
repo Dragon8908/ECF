@@ -57,7 +57,7 @@
                 <li>
                     <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
                         <div class="card-body">
-                            <img src="{{ asset('images/' ~ voitures.image.fichier ) }}" class="card-img w-100 rounded-0" alt="...">
+                            <img src="{{ asset('images/' ~ voitures.fichier ) }}" class="card-img w-100 rounded-0" alt="...">
                             <h5 class="card-title text-primary mt-1 card-titre">{{ voitures.nom }}</h5>
                             <p class="card-text text-primary">
                                 Année: {{ voitures.annee }}</br>                                    
@@ -77,7 +77,7 @@
             {% for voitures in voitures %}
             <div class="card card-hover h-100 col-md-12 col-sm-12 col-lg-4 col-xl-4 rounded-0 border-0 mb-5">
                 <div class="card-body">
-                    <img src="{{ asset('images/' ~ voitures.image.fichier ) }}" class="card-img w-100 rounded-0" alt="...">
+                    <img src="{{ asset('images/' ~ voitures.fichier ) }}" class="card-img w-100 rounded-0" alt="...">
                     <h5 class="card-title text-primary mt-1 card-titre">{{ voitures.nom }}</h5>
                     <p class="card-text text-primary">
                     Année: {{ voitures.annee }}</br>
@@ -114,5 +114,27 @@
             {% endfor %}
         </div>
     </div>
+    {#{% if app.user and "ROLE_USER" in app.user.roles %} #}
+    <div class="row">
+        <div class="col"></div>
+        <div class="col form-fonts">
+            <h1 class="mb-3 text-center mt-3 text-primary">Ajouter une voiture</h1>
+            {{ form_start(voitureForm) }}
+            <div class="text-primary">Nom</div>
+            {{ form_row(voitureForm.nom) }}
+            <div class="text-primary">Prix en euros(nombre entier)</div>
+            {{ form_row(voitureForm.prix) }}
+            <div class="text-primary">Année de la mise en circulation</div>
+            {{ form_row(voitureForm.annee) }}
+            <div class="text-primary">Kilométrage</div>
+            {{ form_row(voitureForm.km) }}
+            <div class="text-primary">Images</div>
+            {{ form_row(voitureForm.fichier) }}
+            <button type="submit" class="mt-3 w-100 login-btn mb-2 text-secondary">Ajouter</button>
+            {{ form_end(voitureForm) }}
+        </div>
+    <div class="col"></div>
+    {#{% endif %}#}
+</div> 
 </section>
 {% endblock %}
