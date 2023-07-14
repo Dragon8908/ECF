@@ -16,8 +16,14 @@ security:
             security: false
         main:
             lazy: true
+            form_login:
+                login_path: app_connexion
+                check_path: app_connexion
+                username_parameter: "login[email]"
+                password_parameter: "login[password]"
+                default_target_path: app_accueil
             provider: app_user_provider
-            custom_authenticator: App\Security\UsersAuthenticator
+            #custom_authenticator: App\Security\UsersAuthenticator
             logout:
                 path: app_deconnexion
 
@@ -30,8 +36,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        #- { path: ^/admin, roles: ROLE_ADMIN }
-        #- { path: ^/profil, roles: ROLE_USER }
+        #{ path: ^/admin, roles: ROLE_ADMIN }
+        #{ path: ^/profil, roles: ROLE_USER }
 
 when@test:
     security:

@@ -15,8 +15,8 @@ class TemoignageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',TextType::class, ['attr' => ['class' => 'form-control mb-3'], 'label' => false])
-            ->add('commentaire', TextareaType::class, ['attr' => ['class' => 'form-control mb-3 form-title_style text-primary'], 'label' => false])
+            ->add('nom',TextType::class, ['required' => true,'attr' => ['class' => 'form-control mb-3'], 'label' => false])
+            ->add('commentaire', TextareaType::class, ['required' => true,'attr' => ['class' => 'form-control mb-3 form-title_style text-primary'], 'label' => false])
             ->add('note', ChoiceType::class, [
                 'placeholder' => "Votre note",
                 'attr' => [

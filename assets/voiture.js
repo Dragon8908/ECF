@@ -1,197 +1,84 @@
-let contextUl = document.querySelector('#product-grid');
-let orderNameBtn = document.querySelector('#orderName');
-let checkbox = document.querySelectorAll('input[type=checkbox]')
-let inputPrice = document.querySelectorAll('#min_price, #max_price')
-let inputKilometrages = document.querySelectorAll('#kilometrages-min, #kilometrages-max')
-let inputReleaseYear = document.querySelectorAll('#releaseYear-min, #releaseYear-max')
-
-
-checkbox.forEach((el) => {
-    if (new URLSearchParams(window.location.search).getAll('type[]').includes(el.value.toString())) {
-        el.checked = true
-    }
-})
-
-checkbox.forEach((el) => {
-    el.addEventListener('change', () => {
-        ur = new URLSearchParams(window.location.search);
-
-        const Form = new FormData(formCheckbox)
-
-        ur.delete('type[]')
-
-        Form.forEach((value, key) => {
-            ur.append(key, value)
-        })
-
-        $.ajax({
-            url : buyUrl + '?' + ur.toString(),
-            dataType : 'html',
-            type : "get",
-            async: true,
-            context : orderNameBtn,
-            success : function(data) {
-                window.history.pushState("", "", buyUrl + '?' + ur.toString() )
-
-                contextUl.innerHTML = data
-            }
-        })
-    })
-})
-
-formFilter = document.querySelector('#form-filter')
-buyUrl = new URL((window.location.origin + window.location.pathname))
-
-ur = new URLSearchParams(window.location.search);
-
-
-
-
-inputKilometrages.forEach((item) => {
-
-    if (ur.get(item.name)) {
-        item.value = ur.get(item.name);
-    }
-
-    item.addEventListener('input', () => {
-
-        const Form = new FormData(formFilter)
-
-        Form.forEach((value, key) => {
-            ur.set(key, value)
-            if (value.length === 0 ) {
-                ur.delete(key)
-            }
-        })
-
-        setTimeout(() => {
-            $.ajax({
-                url : buyUrl + '?' + ur.toString(),
-                dataType : 'html',
-                type : "get",
-                async: true,
-                context : orderNameBtn,
-                success : function(data) {
-                    window.history.pushState("", "", buyUrl + '?' + ur.toString() )
-
-                    contextUl.innerHTML = data
-                }
-            })
-        }, 1000)
-    })
-})
-
-inputReleaseYear.forEach((item) => {
-
-    if (ur.get(item.name)) {
-        item.value = ur.get(item.name);
-    }
-
-    item.addEventListener('input', () =>{
-        const Form = new FormData(formFilter)
-
-        Form.forEach((value, key) => {
-            ur.set(key, value)
-            if (value.length === 0 ) {
-                ur.delete(key)
-            }
-        })
-
-        setTimeout(() => {
-            $.ajax({
-                url : buyUrl + '?' + ur.toString(),
-                dataType : 'html',
-                type : "get",
-                async: true,
-                context : orderNameBtn,
-                success : function(data) {
-                    window.history.pushState("", "", buyUrl + '?' + ur.toString() )
-
-                    contextUl.innerHTML = data
-                }
-            })
-        }, 1000)
-    })
-})
-
-inputPrice.forEach((item) => {
-
-    if (ur.get(item.name)) {
-        item.value = ur.get(item.name);
-    }
-
-    item.addEventListener('input', () => {
-
-        const Form = new FormData(formFilter)
-
-        Form.forEach((value, key) => {
-            ur.set(key, value)
-            if (value.length === 0 ) {
-                ur.delete(key)
-            }
-        })
-
-        setTimeout(() => {
-            $.ajax({
-                url : buyUrl + '?' + ur.toString(),
-                dataType : 'html',
-                type : "get",
-                async: true,
-                context : orderNameBtn,
-                success : function(data) {
-                    window.history.pushState("", "", buyUrl + '?' + ur.toString() )
-
-                    contextUl.innerHTML = data
-                }
-            })
-        }, 1000)
-    })
-})
-
-formCheckbox = document.querySelector('#form-checkbox')
-
-
-let nameOrder = 'name_DESC'
-
-var paramss = nameOrder;
-
-let url = new URL(window.location.href)
-let params = new URLSearchParams(url.search)
-
-
-params.set('order', paramss)
-url.search = params.toString()
-select = document.querySelector('#order-select');
-
-
-select.addEventListener('change', event => {
-
-    let url = new URL(window.location.href)
-    let params = new URLSearchParams(url.search)
-
-    ur.set('order', select.value)
-    url.search = params.toString()
-
-    event.preventDefault()
-
-    $.ajax({
-        url : buyUrl + '?' + ur.toString(),
-        dataType : 'html',
-        type : "get",
-        async: true,
-        success : function(data) {
-            window.history.pushState("", "", buyUrl + '?' + ur.toString())
-
-            contextUl.innerHTML = data
+$( function() {
+    $( "#price-slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 35000,
+        values: [ 0, 35000 ],
+        slide: function( event, ui ) {
+            $( "#price-amount" ).val( ui.values[ 0 ] + "€ - " + ui.values[ 1 ] + "€");
         }
-    })
+        });
+        $( "#price-amount" ).val($( "#price-slider-range" ).slider( "values", 0 ) +
+        "€ - " + $( "#price-slider-range" ).slider( "values", 1 ) + "€");
+    } );
 
+$(function () {
+    $("#price-slider-range").slider();
+    $("#price-slider-range").on('slidechange', function () {
+        filterCars();
+    })
 });
 
+// Kilométrage
+$( function() {
+    $( "#km-slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 350000,
+        values: [ 0, 350000 ],
+        slide: function( event, ui ) {
+            $( "#km-amount" ).val( ui.values[ 0 ] + "km - " + ui.values[ 1 ] + "km");
+        }
+        });
+        $( "#km-amount" ).val($( "#km-slider-range" ).slider( "values", 0 ) +
+        "km - " + $( "#km-slider-range" ).slider( "values", 1 ) + "km");
+    } );
 
-filterBtn = document.querySelector('#btn-filter')
+$(function () {
+    $("#km-slider-range").slider();
+    $("#km-slider-range").on('slidechange', function () {
+        filterCars();
+    })
+});
 
-filterBtn.addEventListener('click', (event) => {
-    filterBtn.classList.toggle('active')
-    $('div.filters').toggleClass('active')
-})
+// Année
+$( function() {
+    $( "#year-slider-range" ).slider({
+        range: true,
+        min: 1990,
+        max: 2023,
+        values: [ 1990, 2023 ],
+        slide: function( event, ui ) {
+            $( "#year-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+        });
+        $( "#year-amount" ).val($( "#year-slider-range" ).slider( "values", 0 ) +
+        " - " + $( "#year-slider-range" ).slider( "values", 1 ));
+    } );
+
+$(function () {
+    $("#year-slider-range").slider();
+    $("#year-slider-range").on('slidechange', function () {
+        filterCars();
+    })
+});
+
+// Filtre des voitures
+
+function filterCars() {
+    $.ajax({
+        url : '/cars',
+        type: "POST",
+        data : JSON.stringify({
+                        'minPrice': $( "#price-slider-range" ).slider( "values", 0 ),
+                        'maxPrice': $( "#price-slider-range" ).slider( "values", 1 ),
+                        'minKm': $( "#km-slider-range" ).slider( "values", 0 ),
+                        'maxKm': $( "#km-slider-range" ).slider( "values", 1 ),
+                        'minYear': $( "#year-slider-range" ).slider( "values", 0 ),
+                        'maxYear': $( "#year-slider-range" ).slider( "values", 1 )
+                    }),
+        success: function(response) {
+                $('#carsList').html(response);
+            }
+        });
+}
