@@ -30,34 +30,35 @@ class InscriptionController extends AbstractController
     EntityManagerInterface $entityManager,  
     HorairesRepository $horairesRepository): Response
     {
-        
-
-        $user = new User();
-        $form = $this->createForm(InscriptionType::class, $user);
-        $form->handleRequest($request);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $user = new User();
+            $form = $this->createForm(InscriptionType::class, $user);
+            $form->handleRequest($request);
  
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user=$form->getData();
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user=$form->getData();
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+
+                $entityManager->persist($user); 
+                $entityManager->flush();
+
+                return $userAuthenticator->authenticateUser(
                     $user,
-                    $form->get('password')->getData()
-                )
-            );
+                    $authenticator,
+                    $request
+                );
+            }
 
-            $entityManager->persist($user); 
-            $entityManager->flush();
-
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            return $this->render('inscription/index.html.twig', [
+                'inscriptionForm' => $form->createView(),
+                'horaires' => $horairesRepository->findBy([])
+            ]);
         }
-
-        return $this->render('inscription/index.html.twig', [
-            'inscriptionForm' => $form->createView(),
-            'horaires' => $horairesRepository->findBy([])
-        ]);
+        return $this->redirectToRoute('app_accueil');
     }
 }

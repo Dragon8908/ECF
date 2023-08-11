@@ -25,28 +25,28 @@
             
             <form class="d-flex mt-3" method="POST">
                 <input class="form-control me-2" type="search" placeholder="Rechercher" name="search" aria-label="Search">
-                <button class="btn btn-outline-danger" type="submit"><i class="bi bi-search search_icon"></i></button>
+                <button class="btn btn-outline-danger" type="submit">Chercher<i class="bi bi-search search_icon"></i></button>
             </form>
 
             <div class="d-flex align-items-center justify-content-around mt-3 mb-3 row range-sliders">
                 <div class="w-25 range-sliders-div">
                     <p>
                         <label for="price-amount">Prix :</label><br>
-                        <input type="text" id="price-amount" readonly style="border:0; color:#D94350; font-weight:bold;">
+                        <input type="text" id="price-amount" style="font-weight:bold;">
                     </p>
                     <div id="price-slider-range"></div>
                 </div>     
                 <div class="w-25 range-sliders-div">
                     <p>
                         <label for="km-amount">Kilométrage :</label><br>
-                        <input type="text" id="km-amount" readonly style="border:0; color:#D94350; font-weight:bold;">
+                        <input type="text" id="km-amount" style="font-weight:bold;">
                     </p>
                     <div id="km-slider-range"></div>
                 </div> 
                 <div class="w-25 range-sliders-div">
                     <p>
                         <label for="year-amount">Année :</label><br>
-                        <input type="text" id="year-amount" readonly style="border:0; color:#D94350; font-weight:bold;">
+                        <input type="text" id="year-amount" style="font-weight:bold;">
                     </p>
                     <div id="year-slider-range"></div>
                 </div> 
@@ -74,8 +74,8 @@
                             <div class="card-body">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details" type="button">Détails</a>
                                 <a href="{{ path('app_contact')}}" class="text-decoration-none"><div class="btn-contact me-md-2">Contact</div></a>
-                                {% if app.user %}
-                                    <a href="{{ path('app_supprimer_voiture', {'id': voiture.id}) }}" class="btn btn-danger">Supprimer</a>
+                                {% if app.user and "ROLE_USER" in app.user.roles %}
+                                    <a href="{{ path('app_supprimer_voiture', {'id': voitures.id}) }}" class="btn btn-danger">Supprimer</a>
                                 {% endif %}
                                 <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

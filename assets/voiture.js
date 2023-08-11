@@ -19,7 +19,6 @@ $(function () {
     })
 });
 
-// Kilométrage
 $( function() {
     $( "#km-slider-range" ).slider({
         range: true,
@@ -41,7 +40,6 @@ $(function () {
     })
 });
 
-// Année
 $( function() {
     $( "#year-slider-range" ).slider({
         range: true,
@@ -62,8 +60,6 @@ $(function () {
         filterCars();
     })
 });
-
-// Filtre des voitures
 
 function filterCars() {
     $.ajax({

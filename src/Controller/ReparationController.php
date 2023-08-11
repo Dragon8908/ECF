@@ -41,6 +41,6 @@ class ReparationController extends AbstractController
             $entityManager->remove($service);
             $entityManager->flush();
         }
-        return $this->redirectToRoute("app_accueil");
+        return $this->redirectToRoute("app_reparation");
     }
 }

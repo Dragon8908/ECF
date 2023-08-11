@@ -39,6 +39,35 @@ class VoitureRepository extends ServiceEntityRepository
         }
     }
 
+    public function findBySearch($search): array
+    {
+        return $this->createQueryBuilder('voiture')
+            ->andWhere('voiture.nom LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->orderBy('voiture.annee', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByRange($minPrice, $maxPrice, $minKm, $maxKm, $minYear, $maxYear): array
+    {
+        return $this->createQueryBuilder('voiture')
+            ->andWhere('voiture.prix BETWEEN :minPrice AND :maxPrice
+                    AND voiture.km BETWEEN :minKm AND :maxKm
+                    AND voiture.annee BETWEEN :minYear AND :maxYear')
+            ->setParameter('minPrice', $minPrice)
+            ->setParameter('maxPrice', $maxPrice)
+            ->setParameter('minKm', $minKm)
+            ->setParameter('maxKm', $maxKm)
+            ->setParameter('minYear', $minYear)
+            ->setParameter('maxYear', $maxYear)
+            ->orderBy('voiture.annee', 'DESC')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+    }
+
 //    /**
 //     * @return Voiture[] Returns an array of Voiture objects
 //     */

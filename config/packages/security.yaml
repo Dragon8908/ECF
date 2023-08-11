@@ -19,8 +19,8 @@ security:
             form_login:
                 login_path: app_connexion
                 check_path: app_connexion
-                username_parameter: "login[email]"
-                password_parameter: "login[password]"
+                #username_parameter: "login[email]"
+                #password_parameter: "login[password]"
                 default_target_path: app_accueil
             provider: app_user_provider
             #custom_authenticator: App\Security\UsersAuthenticator

@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(
         min: 6,
         max: 255,
-        minMessage: 'Votre mot de passe doit contenir 6 charactère au minimum',
+        minMessage: 'Votre mot de passe doit contenir 6 caractères au minimum',
         maxMessage: 'Votre mot de passe ne doit pas contenir plus de 255 charactère'
     )]
     #[Assert\Regex(

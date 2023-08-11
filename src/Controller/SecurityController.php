@@ -2,33 +2,41 @@
 
 namespace App\Controller;
 
-
-use App\Repository\HorairesRepository;
+use App\Form\ConnexionType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Repository\HorairesRepository;
 
 class SecurityController extends AbstractController
 {
-    
-    #[Route(path: '/connexion', name: 'app_connexion')]
-    public function login(
-    AuthenticationUtils $authenticationUtils, HorairesRepository $horairesRepository): Response
+    #[Route('/connexion', name: 'app_connexion')]
+    public function login(AuthenticationUtils $authenticationUtils, Request $request, ManagerRegistry $doctrine, HorairesRepository $horairesRepository): Response
     {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
+        if (!$this->getUser()) {
 
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername, 
-            'error' => $error,
-            'horaires' => $horairesRepository->findBy([])
-        ]);
+            $error = $authenticationUtils->getLastAuthenticationError();
+            $lastEmail = $authenticationUtils->getLastUsername();
+
+            $form = $this->createForm(ConnexionType::class);
+            $form->handleRequest($request);
+
+            return $this->render('security/login.html.twig', [
+                'error' => $error,
+                'last_email' => $lastEmail,
+                'connexionForm' => $form->createView(),
+                'horaires' => $horairesRepository->findBy([]),
+            ]);
+        }
+        return $this->redirectToRoute('app_accueil');
     }
 
-    #[Route(path: '/deconnexion', name: 'app_deconnexion')]
-    public function logout(): void
+    #[Route('/deconnexion', name: 'app_deconnexion')]
+    public function logout()
     {
-        throw new \LogicException('This method can be blank.');
+        
     }
 }
