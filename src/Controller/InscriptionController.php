@@ -21,7 +21,6 @@ class InscriptionController extends AbstractController
     {
         $this->manager = $manager;
     }
-
     #[Route('/inscription', name: 'app_inscription')]
     public function register(Request $request, 
     UserPasswordHasherInterface $userPasswordHasher, 
@@ -43,17 +42,14 @@ class InscriptionController extends AbstractController
                         $form->get('password')->getData()
                     )
                 );
-
                 $entityManager->persist($user); 
                 $entityManager->flush();
-
                 return $userAuthenticator->authenticateUser(
                     $user,
                     $authenticator,
                     $request
                 );
             }
-
             return $this->render('inscription/index.html.twig', [
                 'inscriptionForm' => $form->createView(),
                 'horaires' => $horairesRepository->findBy([])

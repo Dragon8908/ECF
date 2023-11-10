@@ -23,7 +23,7 @@
         <div class="row g-1 reveal">
             <div class="categorie-fonts text-primary ps-3">Nos voitures d'occasions</div>
             
-            <form class="d-flex mt-3" method="POST">
+            {#<form class="d-flex mt-3" method="POST">
                 <input class="form-control me-2" type="search" placeholder="Rechercher" name="search" aria-label="Search">
                 <button class="btn btn-outline-danger" type="submit">Chercher<i class="bi bi-search search_icon"></i></button>
             </form>
@@ -50,7 +50,50 @@
                     </p>
                     <div id="year-slider-range"></div>
                 </div> 
+            </div> #}
+
+            {{ form_start(filtreForm, {attr: {class: 'filter js-filter-form'}}) }}
+
+            <div class="spinner-border js-loading" role="status" aria-hidden="true" style="display: none">
+                <span class="sr-only">Chargement...</span>
             </div>
+
+            <h4>Prix</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(filtreForm.prixmin) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(filtreForm.prixmax) }}
+                </div>
+            </div>
+            <div id="prix-slider" data-min="{{ prixmin }}" data-max="{{ prixmax }}" style="margin-bottom: 3rem;"></div>
+
+            <h4>Kilométrage</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(filtreForm.kmmin) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(filtreForm.kmmax) }}
+                </div>
+            </div>
+            <div id="km-slider" data-min="{{ kmmin }}" data-max="{{ kmmax }}" style="margin-bottom: 3rem;"></div>
+
+            <h4>Année</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(filtreForm.anneemin) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(filtreForm.anneemax) }}
+                </div>
+            </div>
+            <div id="annee-slider" data-min="{{ anneemin }}" data-max="{{ anneemax }}" style="margin-bottom: 3rem;"></div>
+
+            <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+            <a class="btn btn-primary mt-2 mb-3 w-100" href="{{path('app_voiture')}}">Réinitialiser</a>
+            {{ form_end(filtreForm) }}
 
             <div id="carsList">
                 {% if voitures is empty %}

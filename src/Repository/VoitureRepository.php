@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Voiture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Filtre;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<Voiture>
@@ -39,57 +41,86 @@ class VoitureRepository extends ServiceEntityRepository
         }
     }
 
-    public function findBySearch($search): array
+    public function findSearch(Filtre $search): array
     {
-        return $this->createQueryBuilder('voiture')
-            ->andWhere('voiture.nom LIKE :search')
-            ->setParameter('search', '%'.$search.'%')
-            ->orderBy('voiture.annee', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->getSearchQuery($search)->getQuery();
+
+        return $query->getResult();
     }
 
-    public function findByRange($minPrice, $maxPrice, $minKm, $maxKm, $minYear, $maxYear): array
+    /**
+     * Récupère le prix min et le prix max , le kilométrage min et max et année min et max en fonction des filtres de recherche
+     *
+     * @param Filtre $search
+     * @return integer[]
+     */
+    public function findMinMax(Filtre $search): array
     {
-        return $this->createQueryBuilder('voiture')
-            ->andWhere('voiture.prix BETWEEN :minPrice AND :maxPrice
-                    AND voiture.km BETWEEN :minKm AND :maxKm
-                    AND voiture.annee BETWEEN :minYear AND :maxYear')
-            ->setParameter('minPrice', $minPrice)
-            ->setParameter('maxPrice', $maxPrice)
-            ->setParameter('minKm', $minKm)
-            ->setParameter('maxKm', $maxKm)
-            ->setParameter('minYear', $minYear)
-            ->setParameter('maxYear', $maxYear)
-            ->orderBy('voiture.annee', 'DESC')
+        $results = $this->getSearchQuery($search, true, true)
+            ->select('MIN(cars.prix) as prixmin', 'MAX(cars.prix) as prixmax',
+                     'MIN(cars.km) as kmmin', 'MAX(cars.km) as kmmax', 
+                     'MIN(cars.annee) as yearmin', 'MAX(cars.annee) as yearmax')
+
             ->getQuery()
-            ->getArrayResult()
-        ;
+            ->getScalarResult();
+
+        return [
+            $results[0]['prixmin'] ?: 0,
+            $results[0]['prixmax'] ?: 0,
+            $results[0]['kmmin'] ?: 0,
+            $results[0]['kmmax'] ?: 0,
+            $results[0]['yearmin'] ?: 0,
+            $results[0]['yearmax'] ?: 0,
+        ];
     }
-
-//    /**
-//     * @return Voiture[] Returns an array of Voiture objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Voiture
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    
+    /**
+     * Construit la requête de recherche en fonction des filtres
+     *
+     * @param Filtre $search
+     * @param bool $ignorePrice
+     * @param bool $ignoreKm
+     *  @param bool $ignoreYear
+     * @return QueryBuilder
+     */
+    private function getSearchQuery(Filtre $search, $ignorePrice = false, $ignoreKm = false, $ignoreYear = false): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('cars');
+    
+        if (!empty($search->prixmin) && !$ignorePrice) {
+            $qb = $qb
+                ->andWhere('cars.prix >= :prixmin')
+                ->setParameter('prixmin', $search->prixmin);
+        }
+    
+        if (!empty($search->prixmax) && !$ignorePrice) {
+            $qb = $qb
+                ->andWhere('cars.prix <= :prixmax')
+                ->setParameter('prixmax', $search->prixmax);
+        }
+        if (!empty($search->kmmin) && !$ignoreKm) {
+            $qb = $qb
+                ->andWhere('cars.km >= :kmmin')
+                ->setParameter('kmmin', $search->kmmin);
+        }
+    
+        if (!empty($search->kmmax) && !$ignoreKm) {
+            $qb = $qb
+                ->andWhere('cars.km <= :kmmax')
+                ->setParameter('kmmax', $search->kmmax);
+        }
+        
+        if (!empty($search->anneemin) && !$ignoreYear) {
+            $qb = $qb
+                ->andWhere('cars.annee >= :yearmin')
+                ->setParameter('anneemin', $search->anneemin);
+        }
+    
+        if (!empty($search->anneemax) && !$ignoreYear) {
+            $qb = $qb
+                ->andWhere('cars.annee <= :yearmax')
+                ->setParameter('anneemax', $search->anneemax);
+        }
+        return $qb;
+    }
 }
